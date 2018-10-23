@@ -1,0 +1,46 @@
+Pizzeria :
+
+- pizza -> (id) name, price, image, size_id (lien avec la table taille),
+- size -> (id) name, price
+- user -> (id), name, firstname
+- adress ->(id), name, Adress, Zip (Code postal), city, phone, user-id (lien avec la table utilisateur)
+
+--------------BONUS------------------------------
+- order ->(id) , user id, ordererd_at, reference, adress_id
+- order_Detail -> (id), pizza_name, pizza_price, size, quantity, order_id
+
+Liste des pizzas à insérer dans la BDD:
+- Reine (img/pizzas/reine.jpd), 8€
+- Texan, 10€
+- 4 fromages (img/pizzas/4_fromages.jpg),
+-végétarienne (img/pizzas/vegetarienne.jpg), 11€
+-savoyarde, 13€
+-bolognaise, 10€
+-caninibale, 11€
+
+--------------select pizza----------------
+-récupère toutes les pizzas
+SELECT * FROM `pizza`;
+
+- récupérer les pizzas dont le prix est inférieur à 10
+SELECT name FROM pizza WHERE price<10;
+SELECT name FROM pizza HAVING price<10;
+
+- récupérer les pizzas qui n'ont pas d'image
+SELECT name FROM pizza WHERE image='NULL';
+
+- trier les pizzas de la plus cher à la moins cher
+SELECT name FROM pizza ORDER BY price DESC;
+
+- récupérer 3 pizzas dans un ordre aléatoire
+SELECT name FROM `pizza` ORDER BY RAND() LIMIT 3;
+
+- compter le nombre de pizzas
+SELECT COUNT(id) FROM pizza;
+
+- récupérer la pizza la plus cher
+SELECT name FROM pizza WHERE price = (SELECT MAX(price) FROM pizza);
+
+- calculer la moyenne de prix des pizzas
+SELECT AVG(price) From pizza;
+
