@@ -1,14 +1,16 @@
 <?php
 
-// try {
-//     $db = new PDO('mysql:host=localhost; dbname=pizzastore', 'root', ''
-//     [ PDO::ATTR_ERRMODE => PDO:: ERRMODE_WARNING, //active les erreurs SQL
-//     ]); 
-// } catch(Exception $e) {
-//     echo $e->getMessage();
-//     // redirection en PHP vers Google avec le message d'erreur concerné
-//     header('Location: https://www/google.fr/search?q=' .$e->getMessage());
-// }
+try {
+	$db = new PDO('mysql:host=localhost;dbname=pizzastore;charset=utf8', 'root', '', [
+		PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING, // Active les erreurs SQL,
+		// On récupère tous les résultats en tableau associatif
+		PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+	]);
+} catch(Exception $e) {
+	echo $e->getMessage();
+	// Redirection en PHP vers Google avec le message d'erreur concerné
+	header('Location: https://www.google.fr/search?q='.$e->getMessage());
+}
 
 // Création d'une connexion à la BDD
 $db = new PDO('mysql:host=localhost; dbname=pizzastore; charset=utf8', 'root', '');
@@ -16,7 +18,7 @@ $db = new PDO('mysql:host=localhost; dbname=pizzastore; charset=utf8', 'root', '
 var_dump($db);
 
 // on créé une requête pour récupérer les pizzas
-$query = $db->query('SELECT * FROM pizza');
+$query = $db->query('SELECT * FROM pizza'); 
 var_dump($query);
 
 // pour récupérer une seule pizza
@@ -40,7 +42,7 @@ foreach($pizzasName as $pizzaName) {
     echo '<h3>'.$pizzaName['name'].'</h3>';
 }
 
-// parcourir toutes les pizzas avec le FETCHH uniquement
+// parcourir toutes les pizzas avec le FETCH uniquement
 echo '<h2>Toutes les pizzas avec FETCH uniquement</h2>';
 
 $query2 = $db->query('SELECT name FROM pizza');
