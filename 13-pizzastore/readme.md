@@ -5,6 +5,7 @@ L'intérêt est de pouvoir recréer la structure de la base à tout moment.
 
 Au niveau du php, on va créer quelques fichiers/dossiers.
 - config/database.php -> Connexion à la base de données en PDO, sera inclus dans tous les fichiers PHP
+- config/config.php -> Stocke toutes les variables globales
 - index.php -> La page d'accueil du site
 - partials/header.php -> Le header du site à inclure dans toutes les pages (BOOSTRAP CDN).
 - partials/footer.php -> Le footer du site à inclure dans toutes les pages.
