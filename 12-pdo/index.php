@@ -50,3 +50,5 @@ while ($pizza2 = $query2->fetch()) {
     echo $pizza2['name'].' ; ';
 }
 
+
+
