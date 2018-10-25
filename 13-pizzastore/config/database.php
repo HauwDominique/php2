@@ -14,4 +14,4 @@ try {
     // header('Location: https://www.google.fr/search?q='.urlencode($e->getMessage());
     echo '<img src="assets/img/homer_sympson.gif">';
 }
-var_dump($db);
+// var_dump($db);

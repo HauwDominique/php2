@@ -1,4 +1,7 @@
 <?php
+  // inclusion du fichier functions
+  require_once(__DIR__.'/../config/functions.php');
+
   // inclusion du fichier config (qui contient les variables globales au site)
   require_once(__DIR__.'/../config/config.php');
   
@@ -48,7 +51,7 @@
           </li>
           <li class="nav-item <?= ($currentPageUrl === 'pizza_list') ? 'active' : ''; ?>">
           <!--"<"?= correspond à "<"?php echo"-->
-    <a class="nav-link" href="pizza_list.php">Liste des pizzas</a>
+            <a class="nav-link" href="pizza_list.php">Liste des pizzas</a>
           </li>
         </ul>
        </div>
