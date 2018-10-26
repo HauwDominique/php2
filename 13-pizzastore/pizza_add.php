@@ -60,11 +60,6 @@ require_once(__DIR__.'/partials/header.php');?>
             }
         }
     }
-        
-        // si il n'y a pas d'erreur dans le formulaire
-        // if(empty($errors)) {
-        //     $query
-        // }
 	?>
 
 
