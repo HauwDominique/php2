@@ -45,7 +45,13 @@ if($pizza) {
     echo $pizza['id'] .' ; ' .$pizza['name'];}
     else {
         echo "la pizza n'existe pas";
-    }
+	}
+	
+// récupérer les informations de la pizza
+$query=$db->prepare('SELECT * FROM pizza WHERE id = :id'); // :id est un paramètre
+$query->bindvalue(':id', $id, PDO::PARAM_INT); //on s'assure que l'id est bien un entier
+$query->execute(); //Execute la requête
+
 
 
 

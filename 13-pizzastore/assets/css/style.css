@@ -59,3 +59,17 @@
 .card-price-cents{
     font-size: 12px;
 }
+
+.descript-pizza{
+    padding : 10px;
+}
+
+.label_title{
+    color : white;
+    font-size:1.5rem;
+}
+
+.invalid-feedback{
+    font-size: 1.2rem;
+    color:#dc3545;
+}

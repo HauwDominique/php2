@@ -53,6 +53,11 @@
           <!--"<"?= correspond à "<"?php echo"-->
             <a class="nav-link" href="pizza_list.php">Liste des pizzas</a>
           </li>
+          <li class="nav-item <?= ($currentPageUrl === 'pizza_produit') ? 'active' : ''; ?>">
+          <!--"<"?= correspond à "<"?php echo"-->
+            <a class="nav-link" href="pizza_add.php">Ajout de produits</a>
+          </li>
+
         </ul>
        </div>
     </nav>
