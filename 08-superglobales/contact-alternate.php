@@ -33,12 +33,12 @@
 		        //echo 'Le sujet ne doit pas être vide. <br />';
 		    }
 
-		    if (strlen($message) < 15) {
+		    if (strlen($message) < 15) { //vérifier que la longueur du message est supérieur à 15 lettres
 		    	$errors['message'] = 'Le message est trop court.';
 		        //echo 'Le message est trop court.';
 		    }
 
-		    if (empty($errors)) {
+		    if (empty($errors)) { //vérifie que la variable error soit vide (ne contient donc pas d'erreur)
 			    echo 'Envoi du mail';
 			}
 		}
