@@ -65,7 +65,8 @@
 		    </div>
 		    <div class="form-group">
 		        <label for="message">Message</label>
-		        <textarea class="form-control <?= (isset($errors['message'])) ? 'is-invalid' : ''; ?>" name="message" id="message"><?php echo $message; ?></textarea>
+		        <textarea class="form-control <?= (isset($errors['message'])) ? 'is-invalid' : ''; ?>" name="message" id="message">
+				<?php echo $message; ?></textarea>
 		        <div class="invalid-feedback">
 		        	<?php echo (isset($errors['message'])) ? $errors['message']: ''; ?>
 		        </div>
