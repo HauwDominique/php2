@@ -9,9 +9,11 @@ require_once(__DIR__.'/partials/header.php');?>
         $image = null;
         $description = null;
         $category=null;
+
+        var_dump($_POST);//pour voir ce que le formulaire contient comme données remplies
     
 		// $message = null;
-		if (!empty($_POST)) { // Récupére les informations saisies dans le formulaire
+		if (!empty($_POST)) { // $post Récupére les informations saisies dans le formulaire
 		    $name = $_POST['name']; //ok 
             $price = $_POST['price']; //ok
             $image = $_FILES['image']; //ATTENTION ICI IL FAUT PENSER A METTR $_FILES pour les images
