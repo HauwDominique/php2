@@ -2,16 +2,18 @@
 // Le fichier header.php
 require_once(__DIR__.'/partials/header.php');
 
+
+
 		// On déclare les variables pour éviter les erreurs
 		$titre = null;
         $adresse = null;
         $ville = null;
-        $code_postal = null;
-        $description=null;
+        $cp = null;
         $surface=null;
         $prix=null;
+        // $photo =null; JE N'AI PAS REUSSI A RESOUDRE MON PROBLEME SUR LA VARIABLE $IMAGE QUI EST TOUJOURS VU COMME NULL
         $type=null;
-        $image=null;
+        $description=null;
 
         var_dump($_POST);//pour voir ce que le formulaire contient comme données 
         
@@ -19,16 +21,16 @@ require_once(__DIR__.'/partials/header.php');
 		    $titre = $_POST['titre'];
             $adresse = $_POST['adresse'];
             $ville = $_POST['ville'];
-            $code_postal = $_POST['code_postal'];
-            $description = $_POST['description'];
+            $cp = $_POST['cp'];
             $surface = $_POST['surface'];
             $prix = $_POST['prix'];
+            // $photo = $_FILES['photo']; CHARGEMENT DE L IMAGE DESACTIVE SUITE AU PB DE $PHOTO vu comme NULL
+
+            // var_dump($photo);
             $type = $_POST['type'];
-            $image = $_FILES['image'];
+            $description = $_POST['description'];
 
         //   var_dump($image);
-
-            // $message = $_POST['message'];
             
             $errors = [];
 
@@ -44,63 +46,65 @@ require_once(__DIR__.'/partials/header.php');
 		    	$errors['ville'] = 'La ville ne doit pas être vide. <br />';
             }
 
-            if (empty($code_postal) || !is_numeric($code_postal)) {
+            if (empty($cp) || !is_numeric($cp)) {
 		    	$errors['code_postal'] = 'Le code postal est incorrect. <br />';
             }
 
-            if (empty($surface) || !is_int($surface)) {
+            if (empty($surface) && !is_int($surface)) {
 		    	$errors['surface'] = 'La surface est incorrect. <br />';
             }
 
-            if (empty($prix) || !is_int($prix)) {
+            if (empty($prix) && !is_int($prix)) {
 		    	$errors['prix'] = 'Le prix est incorrect. <br />';
             }
 
             // Upload de l'image
-            if (empty($errors)) {
-                    // var_dump($image);
-                    $file = $image['tmp_name']; // Emplacement du fichier temporaire
-                    $fileName = 'img/'.$image['name']; // Variable pour la base de données
-                    $finfo = finfo_open(FILEINFO_MIME_TYPE); // Permet d'ouvrir un fichier
-                    $mimeType = finfo_file($finfo, $file); // Ouvre le fichier et renvoie image/jpg
-                    $allowedExtensions = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'];
+            // if (empty($errors)) {
+                    // var_dump($photo);
+                    // $file = $photo['tmp_name']; // Emplacement du fichier temporaire
+                    // $fileName = 'img/'.$photo['name']; // Variable pour la base de données
+                    // $finfo = finfo_open(FILEINFO_MIME_TYPE); // Permet d'ouvrir un fichier
+                    // $mimeType = finfo_file($finfo, $file); // Ouvre le fichier et renvoie image/jpg
+                    // $allowedExtensions = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'];
                     // Si l'extension n'est pas autorisée, il y a une erreur
-                    if (!in_array($mimeType, $allowedExtensions)) {
-                        $errors['image'] = 'Ce type de fichier n\'est pas autorisé';
-                    }
+                    // if (!in_array($mimeType, $allowedExtensions)) {
+                    //     $errors['photo'] = 'Ce type de fichier n\'est pas autorisé';
+                    // }
                     // Vérifier la taille du fichier
-                    // Le 30 est défini en Ko
-                    if ($image['size'] / 2048 > 256) {
-                        $errors['image'] = 'L\image est trop lourde';
-                    }
-                    if (!isset($errors['image'])) {
-                        move_uploaded_file($file, __DIR__.'/assets/'.$fileName); // On déplace le fichier uploadé où on le souhaite
-                    }
+                    // if ($photo['size'] / 2048 > 256) {
+                    //     $errors['iphoto'] = 'L\image est trop lourde';
+                    // // }
+                    // if (!isset($errors['photo'])) {
+                        // move_uploaded_file($file, __DIR__.'/assets/img'.$fileName); // On déplace le fichier uploadé où on le souhaite
+                    // }
                 }
     
         
             // S'il n'y a pas d'erreurs dans le formulaire
             if (empty($errors)) {
-                $query = $db->prepare('
-                INSERT INTO pizza (`titre`, `adresse`, `ville`, `code_postal`, `description`, `surface`, `prix`, `type`, `photo`) 
-                VALUES (:titre, :adresse, :ville, :code_postal, :description, :surface, :prix, :type, :image)
+                $query = $db->prepare('INSERT INTO logement (`titre`, `adresse`, `ville`, `cp`, `surface`, `prix`, `type`, `description`)
+                VALUES (:titre, :adresse, :ville, :cp, :surface, :prix, :type, :description)
                 ');
+
+                //  , `photo`, `type`, `description`) VOIR POUR AJOUTER CES DONNEES DANS LA TABLE
+                //  , :photo, :type, :description)
+
                 $query->bindValue(':titre', $titre, PDO::PARAM_STR);
                 $query->bindValue(':adresse', $adresse, PDO::PARAM_STR);
                 $query->bindValue(':ville', $ville, PDO::PARAM_STR);
-                $query->bindValue(':code_postal', $code_postal, PDO::PARAM_INT);
-                $query->bindValue(':description', $description, PDO::PARAM_STR);
+                $query->bindValue(':cp', $cp, PDO::PARAM_INT);
                 $query->bindValue(':surface', $surface, PDO::PARAM_INT);
                 $query->bindValue(':prix', $prix, PDO::PARAM_INT);
+                // $query->bindValue(':photo', $fileName, PDO::PARAM_STR);
                 $query->bindValue(':type', $type, PDO::PARAM_STR);
-                $query->bindValue(':image', $fileName, PDO::PARAM_STR);
+                $query->bindValue(':description', $description, PDO::PARAM_STR);
     
                 if ($query->execute()) { // On insère le logement dans la BDD
                     $success = true;
                 }
             }
         
-        }
+        // }
 
     ?>
 
@@ -139,11 +143,11 @@ require_once(__DIR__.'/partials/header.php');
 
             <!-- champ code postal -->
 
-            <label for="code_postal" class='code_postal'>Code postal</label>
-            <input class="form-control col-6 <?= (isset($errors['code_postal'])) ? 'is-invalid' : ''; ?>" type="text"
-                name="code_postal" id="code_postal" value="<?= $code_postal; ?>" />
+            <label for="cp" class='cp'>Code postal</label>
+            <input class="form-control col-6 <?= (isset($errors['cp'])) ? 'is-invalid' : ''; ?>" type="text"
+                name="cp" id="cp" value="<?= $cp; ?>" />
             <div class="invalid-feedback">
-                <?php echo (isset($errors['code_postal'])) ? $errors['code_postal']: ''; ?>
+                <?php echo (isset($errors['cp'])) ? $errors['cp']: ''; ?>
             </div>
 
             <!-- champ description -->
@@ -190,12 +194,10 @@ require_once(__DIR__.'/partials/header.php');
 
             <!-- champ image -->
             <div class="form-group">
-                <label for="image" class='label_title'>Photo du logement</label>
-                <input type="file" class="form-control col-6 <?= (isset($errors['image'])) ? 'is-invalid' : ''; ?>"
-                    name="image" id="image"/>
-
+                <label for="photo" class='label_title'>Photo</label>
+                <input type="file" name="photo" id="photo" class="form-control col-6 <?= (isset($errors['photo'])) ? 'is-invalid' : null; ?> " />
                 <div class="invalid-feedback">
-                    <?php echo (isset($errors['image'])) ? $errors['image']: ''; ?>
+                    <?php echo (isset($errors['photo'])) ? $errors['photo']: ''; ?>
                 </div>
             </div>
 
