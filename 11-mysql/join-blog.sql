@@ -8,7 +8,7 @@
 --(2 façon de l'écrire, avec ou sans alias)
 
 -- SELECT * FROM article a
--- LEFT JOIN user u ON a.author_id = u.id
+-- LEFT JOIN user ON a.author_id = u.id
 SELECT * FROM article
 LEFT JOIN user ON article.author_id = user.id; --ATTENTION A LA A.KEY qui correspond à la clef article.author_id
 
