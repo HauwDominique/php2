@@ -15,7 +15,7 @@ require_once(__DIR__.'/partials/header.php');
         $type=null;
         $description=null;
 
-        var_dump($_POST);//pour voir ce que le formulaire contient comme données 
+        // var_dump($_POST);//pour voir ce que le formulaire contient comme données 
         
         if (!empty($_POST)) { // $post Récupére les informations saisies dans le formulaire
 		    $titre = $_POST['titre'];
@@ -46,8 +46,15 @@ require_once(__DIR__.'/partials/header.php');
 		    	$errors['ville'] = 'La ville ne doit pas être vide. <br />';
             }
 
-            if (empty($cp) || !is_numeric($cp)) {
-		    	$errors['code_postal'] = 'Le code postal est incorrect. <br />';
+            if (empty($cp)  && !is_numeric($cp)) {
+		    	$errors['cp'] = 'Le code postal doit être rempli. <br />';
+            }
+            if (!is_numeric($cp)) {
+                $errors['cp'] = 'Le code postal est incorrect. <br />';
+            }
+
+            if (empty($description)) {
+		    	$errors['description'] = 'La description ne doit pas être vide. <br />';
             }
 
             if (empty($surface) && !is_int($surface)) {
@@ -55,7 +62,18 @@ require_once(__DIR__.'/partials/header.php');
             }
 
             if (empty($prix) && !is_int($prix)) {
-		    	$errors['prix'] = 'Le prix est incorrect. <br />';
+                $errors['prix'] = 'Le prix est incorrect. <br />';
+            }
+
+            // Vérifier le type
+            if (empty($type) || !in_array($type, ['location', 'vente'])) {
+                $errors['type'] = 'La catégorie n\'est pas valide';
+            }
+
+
+                // Vérifier l'image
+            if ($photo['error'] === 4) {
+                $errors['photo'] = 'L\'image n\'est pas valide';
             }
 
             // Upload de l'image
