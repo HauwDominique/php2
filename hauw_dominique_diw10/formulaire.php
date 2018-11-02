@@ -11,7 +11,12 @@ require_once(__DIR__.'/partials/header.php');
         $cp = null;
         $surface=null;
         $prix=null;
-        // $photo =null; JE N'AI PAS REUSSI A RESOUDRE MON PROBLEME SUR LA VARIABLE $IMAGE QUI EST TOUJOURS VU COMME NULL
+        // $photo=null;
+        // JE N'AI PAS REUSSI A RESOUDRE MON PROBLEME SUR LA VARIABLE $IMAGE QUI EST TOUJOURS VU COMME NULL
+        // $photo = !empty($_POST['photo']) ? $_POST['photo'] : NULL;
+        // var_dump($photo);
+        //  CHARGEMENT DE L IMAGE DESACTIVE SUITE AU PB DE $PHOTO vu comme NULL
+       
         $type=null;
         $description=null;
 
@@ -24,9 +29,6 @@ require_once(__DIR__.'/partials/header.php');
             $cp = $_POST['cp'];
             $surface = $_POST['surface'];
             $prix = $_POST['prix'];
-            // $photo = $_FILES['photo']; CHARGEMENT DE L IMAGE DESACTIVE SUITE AU PB DE $PHOTO vu comme NULL
-
-            // var_dump($photo);
             $type = $_POST['type'];
             $description = $_POST['description'];
 
@@ -72,30 +74,28 @@ require_once(__DIR__.'/partials/header.php');
 
 
                 // Vérifier l'image
-            if ($photo['error'] === 4) {
-                $errors['photo'] = 'L\'image n\'est pas valide';
-            }
+            // if ($photo['error'] === 4) {
+            //     $errors['photo'] = 'L\'image n\'est pas valide';
+            // }
 
             // Upload de l'image
             // if (empty($errors)) {
-                    // var_dump($photo);
-                    // $file = $photo['tmp_name']; // Emplacement du fichier temporaire
-                    // $fileName = 'img/'.$photo['name']; // Variable pour la base de données
-                    // $finfo = finfo_open(FILEINFO_MIME_TYPE); // Permet d'ouvrir un fichier
-                    // $mimeType = finfo_file($finfo, $file); // Ouvre le fichier et renvoie image/jpg
-                    // $allowedExtensions = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'];
-                    // Si l'extension n'est pas autorisée, il y a une erreur
-                    // if (!in_array($mimeType, $allowedExtensions)) {
-                    //     $errors['photo'] = 'Ce type de fichier n\'est pas autorisé';
-                    // }
-                    // Vérifier la taille du fichier
-                    // if ($photo['size'] / 2048 > 256) {
-                    //     $errors['iphoto'] = 'L\image est trop lourde';
-                    // // }
-                    // if (!isset($errors['photo'])) {
-                        // move_uploaded_file($file, __DIR__.'/assets/img'.$fileName); // On déplace le fichier uploadé où on le souhaite
-                    // }
-                }
+            //         var_dump($photo);
+            //         $file = $photo['tmp_name']; // Emplacement du fichier temporaire
+            //         $fileName = 'img/'.$photo['name']; // Variable pour la base de données
+            //         $finfo = finfo_open(FILEINFO_MIME_TYPE); // Permet d'ouvrir un fichier
+            //         $mimeType = finfo_file($finfo, $file); // Ouvre le fichier et renvoie image/jpg
+            //         $allowedExtensions = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'];
+            //         if (!in_array($mimeType, $allowedExtensions)) {
+            //             $errors['photo'] = 'Ce type de fichier n\'est pas autorisé';
+            //         }
+            //         if ($photo['size'] / 2048 > 256) {
+            //             $errors['iphoto'] = 'L\image est trop lourde';
+            //         }
+            //         if (!isset($errors['photo'])) {
+            //             move_uploaded_file($file, __DIR__.'/assets/img'.$fileName); // On déplace le fichier uploadé où on le souhaite
+            //         }
+            //     }
     
         
             // S'il n'y a pas d'erreurs dans le formulaire
@@ -122,7 +122,7 @@ require_once(__DIR__.'/partials/header.php');
                 }
             }
         
-        // }
+        }
 
     ?>
 
